@@ -6,7 +6,6 @@ TEXT_LENGTH = 256
 
 
 class BaseModel(models.Model):
-    """Абстрактная модель. Добавляет флаг is_published и дату публикации."""
     is_published = models.BooleanField(
         default=True,
         verbose_name='Опубликовано',
@@ -18,12 +17,10 @@ class BaseModel(models.Model):
     )
 
     class Meta:
-        abstract = True  # Эта модель является абстрактной и не будет создана в базе данных
-
+        abstract = True
 
 
 class Category(BaseModel):
-    """Модель для категорий публикаций."""
     title = models.CharField(max_length=TEXT_LENGTH, verbose_name='Заголовок')
     description = models.TextField(verbose_name='Описание')
     slug = models.SlugField(
@@ -39,7 +36,6 @@ class Category(BaseModel):
 
 
 class Location(BaseModel):
-    """Модель для местоположений."""
     name = models.CharField(max_length=TEXT_LENGTH,
                             verbose_name='Название места')
 
@@ -49,7 +45,6 @@ class Location(BaseModel):
 
 
 class Post(BaseModel):
-    """Модель для публикаций."""
     title = models.CharField(max_length=TEXT_LENGTH, verbose_name='Заголовок')
     text = models.TextField(verbose_name='Текст')
     pub_date = models.DateTimeField(
@@ -85,7 +80,6 @@ class Post(BaseModel):
 
 
 class Comment(models.Model):
-    """Модель для комментариев к публикациям."""
     text = models.TextField('Текст комментария')
     post = models.ForeignKey(
         Post,
